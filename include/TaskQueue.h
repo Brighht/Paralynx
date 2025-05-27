@@ -7,8 +7,8 @@ using namespace std;
 
 class TaskQueue {
     private:
-        queue<Task> tasks;
-        mutex mtx;
+        queue<Task> queue_;
+        mutable mutex mutex_;
     
     public:
         // Add A Task to the queue
