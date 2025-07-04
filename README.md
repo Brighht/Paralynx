@@ -2,9 +2,9 @@
 
 **Paralynx** is a blazing-fast, modern C++ task execution engine with real-time profiling.
 
-- 🚀 **Thread pool**: Multiple workers execute queued jobs concurrently.
-- 🛡️ **Thread-safe queue**: Robust, lock-protected task management.
-- 📊 **Profiler**: Tracks latency and throughput for every job.
+- **Thread pool**: Multiple workers execute queued jobs concurrently.
+- **Thread-safe queue**: Robust, lock-protected task management.
+- **Profiler**: Tracks latency and throughput for every job.
 
 ## Quick Start
 
