@@ -3,14 +3,11 @@
 #include <string>
 #include <chrono>
 
-using namespace std;
-using namespace std::chrono;
-
 struct Task {
-    string id;
-    function<void()> work;
-    high_resolution_clock::time_point created_at = high_resolution_clock::now();
+    std::string id;
+    std::function<void()> work;
+    std::chrono::high_resolution_clock::time_point created_at;
 
-    Task(const string& task_id, function<void()> task_work)
-        : id(task_id), work(std::move(task_work)) {}
+    Task(const std::string& task_id, std::function<void()> task_work)
+        : id(task_id), work(std::move(task_work)), created_at(std::chrono::high_resolution_clock::now()) {}
 };

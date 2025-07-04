@@ -1,21 +1,19 @@
 #pragma once
+#include "Task.h"
 #include <queue>
 #include <mutex>
-#include "Task.h"
-
-using namespace std;
+#include <condition_variable>
+#include <optional>
 
 class TaskQueue {
-    private:
-        queue<Task> queue_;
-        mutable mutex mutex_;
-    
-    public:
-        // Add A Task to the queue
-        void push(const Task& task);
+public:
+    void push(const Task& task);
+    std::optional<Task> pop();
+    void stop();
 
-        //Remove and return the next task from the queue(copy for now)
-        Task pop();
-
-        bool isEmpty() const;
+private:
+    std::queue<Task> queue_;
+    std::mutex mutex_;
+    std::condition_variable cv_;
+    bool stopped_ = false;
 };

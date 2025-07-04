@@ -1,24 +1,22 @@
 #include "TaskQueue.h"
-#include <stdexcept> 
 
 void TaskQueue::push(const Task& task) {
     std::lock_guard<std::mutex> lock(mutex_);
     queue_.push(task);
+    cv_.notify_one();
 }
 
-Task TaskQueue::pop() {
-    std::lock_guard<std::mutex> lock(mutex_);
-
-    if (queue_.empty()) {
-        throw std::runtime_error("Attempted to pop from an empty queue");
-    }
-
-    Task task = queue_.front();
+std::optional<Task> TaskQueue::pop() {
+    std::unique_lock<std::mutex> lock(mutex_);
+    cv_.wait(lock, [&]{ return !queue_.empty() || stopped_; });
+    if (queue_.empty()) return std::nullopt;
+    Task t = queue_.front();
     queue_.pop();
-    return task;
+    return t;
 }
 
-bool TaskQueue::isEmpty() const {
+void TaskQueue::stop() {
     std::lock_guard<std::mutex> lock(mutex_);
-    return queue_.empty();
+    stopped_ = true;
+    cv_.notify_all();
 }
