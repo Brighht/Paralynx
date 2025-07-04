@@ -22,6 +22,14 @@ make
 ```
 Average latency: 58.2 ms
 Throughput: 20 tasks
+
+Average latency: 528.105 ms
+number of tasks : 20000
+Throughput: 205 tasks
+
+Average latency: 617.659 ms
+number of tasks : 500000
+Throughput: 241 tasks
 ```
 
 ## How it works
